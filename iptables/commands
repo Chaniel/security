@@ -2,3 +2,8 @@
 # L list,  n number, v verbose,  show line number
 iptables -L -nv --line-numbers
 
+# 增加一条规则，允许任何地址访问本机的80端口，该规则插入在filter表的INPUT链的第一条
+iptables -t filter -I INPUT -d 192.168.0.31 -p tcp --dport 80 -j ACCEPT
+
+# 删除一条规则， 删除filter表中OUTPUT链中第一条
+iptables -t filter -D OUTPUT 1
