@@ -1,5 +1,6 @@
 # file:  /etc/sysconfig/iptables
 # service iptables restart
+# default drop all packages
 
 *filter
 :INPUT DROP [0:0]
