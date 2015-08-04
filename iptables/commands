@@ -1,0 +1,4 @@
+# 查看
+# L list,  n number, v verbose,  show line number
+iptables -L -nv --line-numbers
+
