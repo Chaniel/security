@@ -1,4 +1,4 @@
-# 查看
+# 查看， iptables 如不加表，默认查看filter表
 # L list,  n number, v verbose,  show line number
 iptables -L -nv --line-numbers
 
