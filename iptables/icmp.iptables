@@ -1,0 +1,12 @@
+# 隐式扩展
+	-p icmp
+				--icmp-type 
+				8 echo-request
+				0 echo-reply
+
+# 不允许别人ping自己
+iptables -t filter -I INPUT -d 192.168.0.31 -p icmp --icmp-type 8 -j DROP
+
+#允许自己ping别人
+iptables -t filter -I OUTPUT -p icmp --icmp-type 8 -j ACCEPT
+iptables -t filter -I INPUT -p icmp --icmp-type 0 -j ACCEPT
