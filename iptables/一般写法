@@ -1,0 +1,8 @@
+# 表 - 链 - A/I/R - 地址 - 端口 - 扩展状态 - 操作
+表： fileter表, nat , mangle
+链： prerouting postrouting input output forward
+地址： -s IP , -d IP 
+端口： -p tcp --sport, -p tcp --dport
+扩展状态： -m state --state NEW,ESTABLISHED
+操作： -j ACCEPT , -j DROP, -j REJECT
+
