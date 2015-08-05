@@ -2,11 +2,22 @@
 # L list,  n number, v verbose,  show line number
 iptables -L -nv --line-numbers
 
+# 保存命令行iptables写的命令到/etc/sysconfig/iptables文件中
+service iptables save
+
+# 也可以保持到文件中
+iptables -save > /etc/sysconfig/iptables.20150805
+
+# 要想让其生效，需要载入
+iptables-restore < /etc/sysconfig/iptables.20150805
+
+
 # 增加一条规则，允许任何地址访问本机的80端口，该规则插入在filter表的INPUT链的第一条
 iptables -t filter -I INPUT -d 192.168.0.31 -p tcp --dport 80 -j ACCEPT
 
 # 删除一条规则， 删除filter表中OUTPUT链中第一条
 iptables -t filter -D OUTPUT 1
+
 
 # 允许本机127.0.0.1之间的互访
 iptables -t filter -A INPUT -s 127.0.0.1 -d 127.0.0.1 -i lo -j ACCEPT
