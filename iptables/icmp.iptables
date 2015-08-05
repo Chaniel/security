@@ -10,3 +10,10 @@ iptables -t filter -I INPUT -d 192.168.0.31 -p icmp --icmp-type 8 -j DROP
 #允许自己ping别人
 iptables -t filter -I OUTPUT -p icmp --icmp-type 8 -j ACCEPT
 iptables -t filter -I INPUT -p icmp --icmp-type 0 -j ACCEPT
+
+
+# 允许别人ping自己，带状态监测
+iptables -t filter -A INPUT -d 192.168.0.31 -p icmp --icmp-type 8 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -t filter -A OUTPUT -s 192.168.0.31 -p icmp --icmp-type 0 -m state --state ESTABLISHED  -j ACCEPT
+
+
