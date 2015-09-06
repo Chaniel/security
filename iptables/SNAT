@@ -1,0 +1,15 @@
+内网主机网关指向前端主机，前端主机可以访问外网。
+前端主机IP：网关指向192.168.10.7
+后端主机网段：192.168.10.0/24
+
+
+在前端主机做如下设置：
+
+# 防火墙
+iptables -t nat -A POSTROUTING -s 192.168.10.0/24 -j SNAT --to-source 172.16.100.106
+service iptables save
+
+# 转发设置打开
+echo 1 > /proc/sys/net/ipv4/ip_forward
+
+在后端测试ping外部应该就可以
