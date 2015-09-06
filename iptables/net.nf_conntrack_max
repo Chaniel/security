@@ -1,0 +1,25 @@
+使用apache benchmark(ab) 测试报错: apr_socket_recv: Connection timed out (110)
+使用ab（ apache benchmark ）测试的时候，使用如下命令：
+
+ab -n 15000 -c 200   http://localhost/abc/abc.php
+执行操作一定条数,或连续执行该命令会出现如下问题：
+
+apr_socket_recv: Connection timed out (110)
+网上有说是资源描述符的问题，用ulimit -n 65536解决，试过不行。
+
+查看系统日志：
+
+dmesg
+显示大量下面错误
+
+nf_conntrack: table full, dropping packet.
+通过google后，加入如下参数  // 需conntrack 模块
+
+vi /etc/sysctl.conf
+
+net.nf_conntrack_max = 655360
+
+net.netfilter.nf_conntrack_tcp_timeout_established = 1200
+
+sysctl -p /etc/sysctl.conf
+修改后，重新启用apache ab 进行测试，问题解决
